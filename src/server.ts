@@ -1,5 +1,5 @@
 /**
- * WhatsApp Activity Tracker - Web Server
+ * Device Activity Tracker - Web Server
  *
  * HTTP server with Socket.IO for real-time tracking visualization.
  * Provides REST API and WebSocket interface for the React frontend.

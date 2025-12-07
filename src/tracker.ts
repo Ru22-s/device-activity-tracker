@@ -16,7 +16,7 @@ interface DeviceMetrics {
 }
 
 /**
- * WhatsAppTracker - Monitors WhatsApp user activity using RTT-based analysis
+ * WhatsAppTracker - Monitors messaging app user activity using RTT-based analysis
  *
  * This class implements a privacy research proof-of-concept that demonstrates
  * how messaging apps can leak user activity information through network timing.
@@ -24,7 +24,10 @@ interface DeviceMetrics {
  * The tracker sends probe messages and measures Round-Trip Time (RTT) to detect
  * when a user's device is actively in use vs. in standby mode.
  *
- * @see paper.pdf for detailed methodology and security implications
+ * Works with WhatsApp, Signal, and similar messaging platforms.
+ *
+ * Based on research: "Careless Whisper: Exploiting Silent Delivery Receipts to Monitor Users"
+ * by Gegenhuber et al., University of Vienna & SBA Research
  */
 export class WhatsAppTracker {
     private sock: WASocket;

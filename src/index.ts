@@ -1,8 +1,8 @@
 /**
- * WhatsApp Activity Tracker - CLI Interface
+ * Device Activity Tracker - CLI Interface
  *
  * This is a proof-of-concept tool demonstrating privacy vulnerabilities
- * in WhatsApp's message delivery system through RTT-based activity analysis.
+ * in messaging apps (in this case WhatsApp) through RTT-based activity analysis.
  *
  * For educational and research purposes only.
  */

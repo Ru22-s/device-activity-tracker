@@ -1,4 +1,4 @@
-# WhatsApp Activity Tracker
+# Device Activity Tracker
 
 > ⚠️ **DISCLAIMER**: Proof-of-concept for educational and security research purposes only. Demonstrates privacy vulnerabilities in WhatsApp and Signal.
 
@@ -13,8 +13,6 @@ This project implements the research from the paper **"Careless Whisper: Exploit
 - Activity patterns over time
 
 **Security implications:** This demonstrates a significant privacy vulnerability in messaging apps that can be exploited for surveillance.
-
-See `paper.pdf` for detailed research methodology and findings.
 
 ## Installation
 
@@ -61,7 +59,7 @@ Follow prompts to authenticate and enter target number.
    - **Standby**: Higher RTT (~1000-3000ms) - idle/screen off
    - **Offline**: Very high RTT or timeout (>5000ms)
 
-The vulnerability: Devices respond significantly faster when actively in use compared to standby mode.
+**The vulnerability:** Devices respond significantly faster when actively in use compared to standby mode. The attack is completely silent - no notifications, no visible messages.
 
 ## Understanding Output
 
@@ -73,15 +71,55 @@ The vulnerability: Devices respond significantly faster when actively in use com
 ## Project Structure
 
 ```
-whatsapp-tracker/
+device-activity-tracker/
 ├── src/
 │   ├── tracker.ts      # Core RTT analysis logic
 │   ├── server.ts       # Backend API server
 │   └── index.ts        # CLI interface
 ├── client/             # React web interface
-├── paper.pdf           # Research paper
 └── package.json
 ```
+
+## How to Protect Yourself
+
+This attack exploits fundamental design flaws in messaging apps. Here are ways to mitigate the risk:
+
+### For Users
+
+1. **Block Unknown Numbers**
+   - In WhatsApp: Settings → Privacy → Messages → "My contacts"
+   - This prevents unknown numbers from sending you any messages (including silent reactions)
+   - **Most effective protection available to end users**
+
+2. **Disable Read Receipts** (Limited effectiveness)
+   - Helps with regular messages but NOT with this specific attack
+   - Silent delivery receipts are still sent regardless of this setting
+
+### For App Developers (WhatsApp, Signal, etc.)
+
+The following mitigations should be implemented to fix this vulnerability:
+
+1. **RTT Normalization**
+   - Add artificial delays to delivery receipts
+   - Normalize all RTT responses to a consistent timeframe (~2000ms ±200ms)
+   - Randomize response timing to prevent pattern detection
+
+2. **Rate Limiting**
+   - Implement strict rate limits on probe-like messages
+   - Detect and block accounts sending repeated reactions to non-existent messages
+   - Exponential backoff for suspicious activity patterns
+
+3. **Behavioral Analysis**
+   - Flag accounts with abnormal messaging patterns
+   - Temporary throttling for suspected tracking behavior
+   - Require CAPTCHA verification for suspicious accounts
+
+4. **OS-Level Protection** (iOS/Android)
+   - Implement consistent network response times regardless of device state
+   - Add noise to all network timing at the OS level
+   - Queue low-priority messages during standby with artificial delays
+
+**Status:** As of December 2025, these protections are NOT implemented in WhatsApp or Signal. This vulnerability remains exploitable.
 
 ## Ethical & Legal Considerations
 
